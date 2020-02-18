@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--1、当前服务的名称（同样的服务同名，不能和别的服务同名）-->
+    <dubbo:application name="user-service-provider"/>
+    <!--2、制定注册中心的位置-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" client="curator"/>
+    <!--3、通信规则（通信协议、通信端口）-->
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!--4、暴露服务 ref:指向服务的真正的实现对象-->
+    <dubbo:service interface="com.hy.demo.Service.UserService" ref="userServiceImpl"/>
+    <!--服务的实现-->
+    <bean id="userServiceImpl" class="com.hy.demo.service.impl.UserServiceImpl"/>
+</beans>
